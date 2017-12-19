@@ -36,20 +36,25 @@ var requestHandler = function(request, response) {
   if ((request.method === 'POST') && (request.url.startsWith('/classes/messages'))) {
     statusCode = 201;
     response.writeHead(statusCode, headers);
-    request.on('data', (json) =>{
-      var message = JSON.parse(json);
+    request.on('data', (buffer) =>{
+      var message = JSON.parse(buffer);
       body.results.unshift(message);
     });
     response.end(JSON.stringify(body));
   }
   if (request.method === 'GET') {
-    statusCode = 200;
-    response.writeHead(statusCode, headers);
-    request.on('data', (json) =>{
-      var message = JSON.parse(json);
-      body.results.shift(message);
-    });
-    response.end(JSON.stringify(body));
+    if (request.url.startsWith('/classes/messages')) {
+      statusCode = 200;
+      response.writeHead(statusCode, headers);
+      // request.on('data', (json) =>{
+      //   var message = JSON.parse(json);
+      //   body.results.shift(message);
+      // });
+      response.end(JSON.stringify(body));
+    } else {
+      // statusCode = 200;
+      // response.writeHead(statusCode, headers);
+    }
   }
   // && (request.url.startsWith('/classes/messages')))
   // Request and Response come from node's http module.
