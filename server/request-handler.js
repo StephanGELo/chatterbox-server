@@ -40,7 +40,9 @@ var requestHandler = function(request, response) {
       var message = JSON.parse(buffer);
       body.results.unshift(message);
     });
+    console.log(body);
     response.end(JSON.stringify(body));
+    console.log('second', body);
   }
   if (request.method === 'GET') {
     if (request.url.startsWith('/classes/messages')) {
@@ -48,8 +50,9 @@ var requestHandler = function(request, response) {
       response.writeHead(statusCode, headers);
       // request.on('data', (json) =>{
       //   var message = JSON.parse(json);
-      //   body.results.shift(message);
+      //   body.resubolts.shift(message);
       // });
+      console.log('GET', body);
       response.end(JSON.stringify(body));
     } else {
       // statusCode = 200;
