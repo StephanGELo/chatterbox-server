@@ -1,4 +1,3 @@
-
 /* Import node's http module: */
 var http = require('http');
 var requestHandler = require('./request-handler');
@@ -15,14 +14,43 @@ var server = http.createServer(requestHandler.requestHandler);
 console.log('Listening on http://' + ip + ':' + port);
 server.listen(port, ip);
 
+//***  Refactor ***//
+// var http = require('http');
+// var handleRequest = require('./request-handler');
+// var urlParser = require('url');
+// var utils = require('./utils');
+
+// var port = 3000;
+
+// var ip = '127.0.0.1';
+
+
+// var router = {
+//   'classes/messages': handleRequest.requestHandler
+// }
+
+
+// var server = http.createServer(function (request, response) {
+//   console.log("serving request type" + request.method + " for url" + request.url);
+//   // var parts = urlParser.parse(request.url);
+//   // if (parts.pathname === '/classes/messages') {
+//   //   handleRequest(request, response);
+//   // } else {
+//   //   utils.sendResponse(response, "Not Found", 404);
+//   // }
+//   var route = router[urlParser.parse(request.url).pathname];
+//   if (route) {
+//     route(request, response);
+//   } else {
+//     utils.sendResponse(response, {}, 404);
+//   }
+// });
+// console.log("Listening on http://" + ip + ":" + port);
+// server.listen(port, ip);
 
 
 
-
-
-
-
-// /* Import node's http module: */
+// /* Import node's http module:
 // var http = require('http');
 
 

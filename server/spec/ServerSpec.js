@@ -102,7 +102,7 @@ describe('Node Server Request Listener Function', function() {
   });
 
 
-  it('Should 404 when asked for a nonexistent file', function() {
+  it('Should 404 when asked for a nonexistent file', function(done) {
     var req = new stubs.request('/arglebargle', 'GET');
     var res = new stubs.response();
 
@@ -114,6 +114,7 @@ describe('Node Server Request Listener Function', function() {
       function() {
         expect(res._responseCode).to.equal(404);
       });
+    done();
   });
 
 });

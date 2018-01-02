@@ -1,4 +1,3 @@
-
 let body = {results: []};
 var messages = {1: 'hi', 2: 'bye', 3: 'I am not sure'};
 var requestHandler = function(request, response) {
@@ -7,15 +6,9 @@ var requestHandler = function(request, response) {
     'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'access-control-allow-headers': 'content-type, accept',
     'access-control-max-age': 10,
-    'Content-Type': 'application/json' 
+    'Content-Type': 'application/json'
   };
-  //&& request.url === '/classes/messages'
-  // request.on('data', (chunk) => {
-  //   results.push(chunk);
-  // }).on('end', () => {
-  //   results = results.concat(results).toString();
-  // });
-  
+
   var statusCode = 200;
   if (request.url !== '/classes/messages') {
     statusCode = 404;
@@ -29,33 +22,30 @@ var requestHandler = function(request, response) {
       var message = JSON.parse(chunk);
       body.results.unshift(message);
     });
-    // console.log(body);
+
     response.end(JSON.stringify(body));
-    // console.log('second', body);
+
+  } else {
+    response.writeHead(404);
   }
 
   if (request.method === 'GET') {
     if (request.url.startsWith('/classes/messages')) {
       statusCode = 200;
       response.writeHead(statusCode, headers);
-      // request.on('data', (json) =>{
-      //   var message = JSON.parse(json);
-      //   body.resubolts.shift(message);
-      // });
+
       console.log('GET', body);
       response.end(JSON.stringify(body));
-    } 
+    }
   }
- 
+
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
   response.writeHead(statusCode, headers);
-
- 
-  //response.end();
 };
+
 module.exports.requestHandler = requestHandler;
 
-// /*************************************************************
+// ************************************************************
 
 // You should implement your request handler function in this file.
 
@@ -67,7 +57,45 @@ module.exports.requestHandler = requestHandler;
 
 // *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
-// **************************************************************/
+// *************************************************************
+// In Need of
+// var utils = require('./utils');
+
+// var objectIdCounter = 1;
+// var messages = [
+//   /*
+//   {
+//     text: "Hello there!!",
+//     username: "steve",
+//     objectId: "objectId"
+//   }
+//   */
+// ];
+
+// var actions = {
+
+//   'GET': function(request, response) {
+//     utils.sendResponse(response, {results: messages});
+//   },
+
+//   'POST': function(request, response) {
+//     utils.collectData(request, function(message) {
+//       messages.push(message);
+//       message.objectId = ++ objectIdCounter;
+//       utils.sendResponse(response, {objectId: message.objectId}, 201);
+
+//     });
+//   },
+
+//   'OPTIONS': function(request, response) {
+//     utils.sendResponse(response, null)
+//   }
+// };
+
+// exports.requestHandler = utils.makeActionHandler(actions);
+
+
+
 
 // var requestHandler = function(request, response) {
 //   // Request and Response come from node's http module.
